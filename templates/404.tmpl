@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found - StreamServe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="py-6 px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-broadcast-tower text-blue-400 text-2xl"></i>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">StreamServe</h1>
+            </div>
+            <nav>
+                <a href="/" class="inline-flex items-center px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-home mr-2"></i>
+                    <span>Home</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center px-4">
+        <div class="text-center max-w-2xl">
+            <!-- SVG Image -->
+            <div class="mb-8 flex justify-center">
+                <svg width="200" height="200" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="text-yellow-400">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-yellow-400">404 Not Found</h2>
+            <p class="text-xl text-gray-300 mb-6">
+                The requested content doesn't exist.
+            </p>
+            <p class="text-lg text-gray-400 mb-8">
+                The page or stream you're looking for may have been moved or deleted.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors">
+                    <i class="fas fa-home mr-2"></i> Go Home
+                </a>
+                <a href="#" onclick="history.back()" class="px-6 py-2 border border-gray-700 hover:bg-gray-800 rounded-lg font-medium transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Go Back
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+        <p>Developed with <i class="fas fa-heart text-red-400"></i> by <span class="text-blue-400">YourName</span></p>
+    </footer>
+</body>
+</html>

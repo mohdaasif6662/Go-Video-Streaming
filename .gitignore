@@ -1,0 +1,81 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Debug files
+debug
+
+# Build output
+build/
+
+# Log files
+*.log
+# Video Output 
+videos/
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Gin specific (development)
+gin-bin
+
+# Binary output when using go install
+bin/
+~bin/
+
+# JetBrains IDE specific files
+*.iml
+
+# Compiled Object files, Static and Dynamic libs
+*.o
+*.a
+*.lib
+
+# Temporary files
+*.tmp
+*.temp
+
+# Cache directories
+.cache/
+__pycache__/
+
+# Coverage files
+coverage.html
+coverage.out
+*.coverprofile
+
+# Local development files
+local.db
+*.local
