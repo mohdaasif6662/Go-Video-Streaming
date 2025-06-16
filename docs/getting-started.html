@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Video Streaming  - HLS Streaming Server Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        pre {
+            background-color: #1e293b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        code {
+            color: #e2e8f0;
+            font-family: monospace;
+        }
+        .method-get { color: #4ade80; }
+        .method-post { color: #60a5fa; }
+        .method-put { color: #fbbf24; }
+        .method-delete { color: #f87171; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-10 bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-broadcast-tower text-blue-400 text-2xl"></i>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Go Video Streaming </h1>
+                <span class="text-sm bg-gray-700 px-2 py-1 rounded">v1.0.0</span>
+            </div>
+            <nav>
+                <a href="https://github.com/yourusername/hls-stream-server" 
+                   class="inline-flex items-center px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-700 transition-colors">
+                    <i class="fab fa-github mr-2"></i>
+                    <span>GitHub</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 flex-shrink-0 mb-8 md:mb-0 md:mr-8">
+            <div class="bg-gray-800 rounded-lg p-4 sticky top-24">
+                <h2 class="text-xl font-bold mb-4 text-blue-400 border-b border-gray-700 pb-2">Documentation</h2>
+                <ul class="space-y-2">
+                    <li><a href="#overview" class="block hover:text-blue-400 transition-colors">Overview</a></li>
+                    <li><a href="#installation" class="block hover:text-blue-400 transition-colors">Installation</a></li>
+                    <li><a href="#api-endpoints" class="block hover:text-blue-400 transition-colors">API Endpoints</a></li>
+                    <li><a href="#security" class="block hover:text-blue-400 transition-colors">Security</a></li>
+                    <li><a href="#error-handling" class="block hover:text-blue-400 transition-colors">Error Handling</a></li>
+                    <li><a href="#examples" class="block hover:text-blue-400 transition-colors">Examples</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-grow">
+            <!-- Overview Section -->
+            <section id="overview" class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">Overview</h2>
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <p class="mb-4">Go Video Streaming  is a lightweight HTTP Live Streaming (HLS) server built with Go and Gin. It serves HLS segmented video content from a specified directory with proper security checks.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-blue-400 mb-2"><i class="fas fa-bolt mr-2"></i>Fast</h3>
+                            <p>Built with Go for high performance streaming</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-blue-400 mb-2"><i class="fas fa-shield-alt mr-2"></i>Secure</h3>
+                            <p>Built-in protection against path traversal attacks</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-blue-400 mb-2"><i class="fas fa-cubes mr-2"></i>Simple</h3>
+                            <p>Easy to set up and integrate with existing HLS content</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation Section -->
+            <section id="installation" class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">Installation</h2>
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-2 text-blue-300">Prerequisites</h3>
+                    <ul class="list-disc pl-6 mb-6 space-y-1">
+                        <li>Go 1.16 or higher</li>
+                        <li>Gin web framework</li>
+                        <li>HLS segmented video files</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold mb-2 text-blue-300">Quick Start</h3>
+                    <div class="mb-6">
+                        <pre><code># Clone the repository
+git clone https://github.com/yourusername/hls-stream-server.git
+cd hls-stream-server
+
+# Create videos directory
+mkdir videos
+
+# Place your HLS files in the videos directory
+# (m3u8 playlist and ts segments)
+
+# Run the server
+go run main.go</code></pre>
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-2 text-blue-300">Configuration</h3>
+                    <p class="mb-2">By default, the server looks for HLS files in the <code>./videos</code> directory. You can modify this by changing the <code>hlsDir</code> variable in <code>main.go</code>.</p>
+                </div>
+            </section>
+
+            <!-- API Endpoints Section -->
+            <section id="api-endpoints" class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">API Endpoints</h2>
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <div class="mb-8">
+                        <div class="flex items-center mb-2">
+                            <span class="method-get font-bold mr-3">GET</span>
+                            <span class="font-mono bg-gray-700 px-2 py-1 rounded">/</span>
+                        </div>
+                        <p class="mb-2">Returns the homepage HTML template.</p>
+                        <pre><code>curl http://localhost:8080/</code></pre>
+                    </div>
+
+                    <div class="mb-8">
+                        <div class="flex items-center mb-2">
+                            <span class="method-get font-bold mr-3">GET</span>
+                            <span class="font-mono bg-gray-700 px-2 py-1 rounded">/hls/{filepath}</span>
+                        </div>
+                        <p class="mb-2">Serves HLS files from the videos directory. The {filepath} should be relative to the videos directory.</p>
+                        <pre><code># Example request for a playlist
+curl http://localhost:8080/hls/stream1/master.m3u8
+
+# Example request for a segment
+curl http://localhost:8080/hls/stream1/segment1.ts</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Section -->
+            <section id="security" class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">Security</h2>
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <p class="mb-4">Go Video Streaming  implements several security measures to prevent unauthorized access and path traversal attacks:</p>
+                    
+                    <ul class="list-disc pl-6 mb-6 space-y-2">
+                        <li><strong>Absolute Path Check</strong>: Rejects requests with absolute paths</li>
+                        <li><strong>Dot-Dot Check</strong>: Prevents directory traversal attempts (e.g., ../../../etc/passwd)</li>
+                        <li><strong>Directory Check</strong>: Verifies the requested path is within the configured HLS directory</li>
+                        <li><strong>File Existence Check</strong>: Ensures the requested file exists and is not a directory</li>
+                    </ul>
+
+                    <p>If any security check fails, the server returns a 403 Forbidden response.</p>
+                </div>
+            </section>
+
+            <!-- Error Handling Section -->
+            <section id="error-handling" class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">Error Handling</h2>
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold mb-2 text-blue-300">403 Forbidden</h3>
+                        <p class="mb-2">Returned when:</p>
+                        <ul class="list-disc pl-6 mb-2">
+                            <li>Path traversal attempt detected</li>
+                            <li>Requested file is outside the HLS directory</li>
+                            <li>Requested file doesn't exist</li>
+                            <li>Requested path is a directory</li>
+                        </ul>
+                        <p>Response includes a user-friendly HTML error page.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Examples Section -->
+            <section id="examples" class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">Examples</h2>
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-2 text-blue-300">Directory Structure</h3>
+                    <pre><code>videos/
+├── stream1/
+│   ├── master.m3u8
+│   ├── variant1.m3u8
+│   ├── variant2.m3u8
+│   ├── segment1.ts
+│   └── segment2.ts
+└── stream2/
+    ├── master.m3u8
+    └── segment1.ts</code></pre>
+
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-blue-300">Integration with Video Players</h3>
+                    <p class="mb-4">Go Video Streaming  works with any HLS-compatible video player. Here's an example using hls.js:</p>
+                    
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/hls.js@latest"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;video id="video" controls&gt;&lt;/video&gt;
+    &lt;script&gt;
+        if (Hls.isSupported()) {
+            const video = document.getElementById('video');
+            const hls = new Hls();
+            hls.loadSource('http://localhost:8080/hls/stream1/master.m3u8');
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>Developed with <i class="fas fa-heart text-red-400"></i> by <span class="text-blue-400">Majd Sassi</span></p>
+            <p class="mt-2 text-sm">© 2025 Go Video Streaming . All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
